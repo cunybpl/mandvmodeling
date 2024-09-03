@@ -1,6 +1,6 @@
-# MandVModeling Project README
+# MandVModeling
 
-[!NOTE] This project is actively developed. Expect frequent updates and changes.
+**_NOTE:_** This project is actively developed. Expect frequent updates and changes.
 
 ## Overview
 
