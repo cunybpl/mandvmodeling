@@ -4,7 +4,7 @@
 
 ## Overview
 
-MandVModeling is an open-source Python project for modeling and visualizing changepoint models. It provides tools for generating coordinates, plotting data, and analyzing trends in time series data. Borrows heavily from CUNY Building Performance Lab's `changepointmodel` Github repository.
+MandVModeling is an open-source Python project for modeling and visualizing changepoint models. It provides tools for generating coordinates, plotting data, and analyzing trends in time series data. Uses research-driven findings to make modifications and additions to [CUNYBPL's `changepointmodel` Github repository](https://github.com/cunybpl/changepointmodel).
 
 
 ## Table of Contents
@@ -16,6 +16,12 @@ MandVModeling is an open-source Python project for modeling and visualizing chan
 5. [Contributing](#contributing)
 6. [License](#license)
 7. [Acknowledgments](#acknowledgments)
+
+## Differences from CUNYBPL's `changepointmodel`
+
+- Uses different bounds
+- Uses initial guesses
+- `EnergyOATDataModel` inherits from `CurvefitEstimatorDataModel` but the data is forcibly sorted by X.
 
 ## Project Structure
 
@@ -38,6 +44,9 @@ The project consists of several main components:
 
 ## Future Work
 
+- [] Import modified `bounds.py` and `init_guesses.py` file from `peterphung2043/changepointmodel` and perform unit tests for these two.
+    - [] Make sure `bounds.py` and `init_guesses.py` natively support `cunybpl/changepointmodel`
+    - [] Modify the README to reflect these differences
 - [] Test the model coordinates parsers in `model_coordinates_parsers.py`
 - [] Test the `PlotlyModelCoordinates`, `PlotlyRawDataCoordinates`, `PlotlyModelParameters`, `PlotlyRawDataParameters` dataclasses in the `plotly_parameters.py` file.
 - [] Create test fixtures for the model coordinates parsers and the `PlotlyModelParameters` and `PlotlyRawDataParameters` dataclasses.
@@ -49,7 +58,6 @@ The project consists of several main components:
 - [] Ensure PEP 484 compliancy. Make sure everything has a specified type.
 - [] Put up some badges on this readme to show relevant information about this package.
 - [] [Use Github Actions to develop a Python workflow](https://docs.github.com/en/actions/use-cases-and-examples/building-and-testing/building-and-testing-python)
-
 ## Contributing
 
 Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details on how to contribute.
