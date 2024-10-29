@@ -1,6 +1,9 @@
 """ Dynamically calculates trf bounds for changepoint models where we approximately expect them to fit energy data based on 
 the values of the X array.
 
+These alternate bounds were based on bounds defined by Maximillian Brownstein for research projects which use energy
+consumption data at a daily timescale.
+
 Tuple return types correspond directly to coeffs in the method signature.Details on the structure of the bounds 
 tuples can be read in the docs for `scipy.optimize.curve_fit`.
 """
@@ -8,17 +11,7 @@ tuples can be read in the docs for `scipy.optimize.curve_fit`.
 from typing import Tuple, Union, Callable
 import numpy as np
 from changepointmodel.core.nptypes import OneDimNDArray, NByOneNDArray
-
-BoundTuple = Tuple[Tuple[float, ...], Tuple[float, ...]]
-TwoParameterBoundary = Tuple[float, float]
-ThreeParameterBoundary = Tuple[float, float, float]
-FourParameterBoundary = Tuple[float, float, float, float]
-FiveParameterBoundary = Tuple[float, float, float, float, float]
-
-OpenBoundCallable = Callable[
-    [Union[OneDimNDArray[np.float64], NByOneNDArray[np.float64]]], BoundTuple
-]
-
+from .base import TwoParameterBoundary, ThreeParameterBoundary, FourParameterBoundary, FiveParameterBoundary
 
 def twop(*args, **kwargs) -> Tuple[TwoParameterBoundary, TwoParameterBoundary]:  # type: ignore
     """Energy bound for a twop (linear) model. Essentially returns a constant but we need this to

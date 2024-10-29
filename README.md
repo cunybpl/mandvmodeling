@@ -27,9 +27,7 @@ MandVModeling is an open-source Python project for modeling and visualizing chan
 
 The project consists of several main components:
 
-- `mandvmodeling/core`: Contains core classes and utilities
-- `mandvmodeling/plotly_plotting`: Implements Plotly-based visualization tools
-- `mandvmodeling/changepoint_models`: Provides implementations of different changepoint models
+- `mandvmodeling/core`: Contains the machine learning modeling class `` and the data modeling class
 
 ## Installation
 
@@ -58,6 +56,7 @@ The project consists of several main components:
 - [] Ensure PEP 484 compliancy. Make sure everything has a specified type.
 - [] Put up some badges on this readme to show relevant information about this package.
 - [] [Use Github Actions to develop a Python workflow](https://docs.github.com/en/actions/use-cases-and-examples/building-and-testing/building-and-testing-python)
+
 ## Contributing
 
 Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details on how to contribute.
