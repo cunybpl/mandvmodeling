@@ -6,6 +6,7 @@
 
 MandVModeling is an open-source Python project for modeling and visualizing changepoint models. It provides tools for analyzing trends in time series data. Uses research-driven findings to make modifications and additions to [CUNYBPL's `changepointmodel` Github repository](https://github.com/cunybpl/changepointmodel).
 
+This package was developed in order to work with higher granularity data, as `cunybpl/changepointmodel` was designed and tested for only monthly granularity. This package was designed to support not only monthly but also daily granularity data with relevant tests applied. ASHRAE Guideline 14 points out that by using a daily granularity, data can be split up by weekdays and weekends, which results in separate models for the different daytimes. This allows for more fine-grained research and reporting.
 
 ## Table of Contents
 

@@ -82,7 +82,7 @@ class MandVCurvefitEstimator(ChangepointModelCurvefitEstimator):
         y: Optional[npt.NDArray[np.float64]] = None,
         sigma: Optional[npt.NDArray[np.float64]] = None,
         absolute_sigma: bool = False,
-    ) -> "CurvefitEstimator":
+    ) -> "MandVCurvefitEstimator":
         """Fit X features to target y.
 
         Refer to scipy.optimize.curve_fit docs for details on sigma values.
