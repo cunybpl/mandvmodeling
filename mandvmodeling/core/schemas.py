@@ -34,13 +34,13 @@ TimestampArrayField = Annotated[
     )
     ]
 
-class EnergyOATDataModel(CurvefitEstimatorDataModel):
+class MandVDataModel(CurvefitEstimatorDataModel):
   sensor_reading_timestamps: TimestampArrayField
   """
   An extended version of CurvefitEstimatorDataModel that forces the data to be sorted by X
   """
   @pydantic.model_validator(mode = "after")
-  def check_sorted(self) -> "EnergyOATDataModel":
+  def check_sorted(self) -> "MandVDataModel":
     """
     Checks to see if the X values are sorted. If not, sorts them.
     """
@@ -50,7 +50,7 @@ class EnergyOATDataModel(CurvefitEstimatorDataModel):
     return self
 
   @pydantic.model_validator(mode = "after")
-  def validate_all(self) -> "EnergyOATDataModel":
+  def validate_all(self) -> "MandVDataModel":
     """
     Asserts that the length of X, y, and sensor_reading_timestamps are the same
     """

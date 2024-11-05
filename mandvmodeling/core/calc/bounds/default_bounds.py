@@ -7,8 +7,8 @@ tuples can be read in the docs for `scipy.optimize.curve_fit`.
 
 from typing import Tuple, Union, Callable
 import numpy as np
-from ...nptypes import OneDimNDArray, NByOneNDArray
-from .base import TwoParameterBoundary, ThreeParameterBoundary, FourParameterBoundary, FiveParameterBoundary
+from changepointmodel.core.nptypes import OneDimNDArray, NByOneNDArray
+from changepointmodel.core.calc.bounds import TwoParameterBoundary, ThreeParameterBoundary, FourParameterBoundary, FiveParameterBoundary
 
 def twop(*args, **kwargs) -> Tuple[TwoParameterBoundary, TwoParameterBoundary]:  # type: ignore
     """Energy bound for a twop (linear) model. Essentially returns a constant but we need this to

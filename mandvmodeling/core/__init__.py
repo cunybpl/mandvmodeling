@@ -1,1 +1,1 @@
-from .schemas import EnergyOATDataModel
+from .schemas import MandVDataModel

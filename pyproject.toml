@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mandvmodeling"
-version = "0.1.0"
+version = "1.0.0"
 description = "Energy changepoint modeling using changepointmodel and plotting using Plotly"
 authors = ["cunybpl <dev@cunybpl.org>"]
 readme = "README.md"
@@ -11,6 +11,9 @@ pydantic = "^2.8.2"
 pytest = "^8.3.2"
 changepointmodel = {git = "https://github.com/cunybpl/changepointmodel.git"}
 
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.29.5"
 
 [build-system]
 requires = ["poetry-core"]
