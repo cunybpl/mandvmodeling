@@ -3,6 +3,7 @@ from changepointmodel.core.pmodels import base as ChangepointModelBase
 from typing import Union
 from . import base as MandVModelingBase
 
+
 class MandVParameterModelFunction(ParameterModelFunction):
     """
     A class representing a parameter model function, inheriting from
@@ -36,7 +37,9 @@ class MandVParameterModelFunction(ParameterModelFunction):
         bounds: Union[ChangepointModelBase.BoundCallable, ChangepointModelBase.Bound],
         parameter_model: ChangepointModelBase.EnergyParameterModelT,
         coefficients_parser: ChangepointModelBase.ICoefficientParser,
-        initital_guesses: Union[MandVModelingBase.InitialGuessCallable, MandVModelingBase.InitialGuess] = None,
+        initital_guesses: Union[
+            MandVModelingBase.InitialGuessCallable, MandVModelingBase.InitialGuess
+        ] = None,
     ):
         super().__init__(
             name=name,
@@ -53,7 +56,9 @@ class MandVParameterModelFunction(ParameterModelFunction):
     @property
     def initial_guesses(
         self,
-    ) -> Union[MandVModelingBase.InitialGuessCallable, MandVModelingBase.InitialGuess, None]:
+    ) -> Union[
+        MandVModelingBase.InitialGuessCallable, MandVModelingBase.InitialGuess, None
+    ]:
         """
         Returns the initial guesses for the parameter model function.
 

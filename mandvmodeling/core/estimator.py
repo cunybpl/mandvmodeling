@@ -1,18 +1,16 @@
-from typing import Any, Optional, Union, List, Tuple, Dict
+from typing import Any, Optional, Union, Tuple, Dict
 from collections.abc import Callable
 from changepointmodel.core.nptypes import OneDimNDArray
 import numpy.typing as npt
 import numpy as np
 from changepointmodel.core import (
     EnergyChangepointEstimator as ChangepointModelEnergyChangepointEstimator,
+    CurvefitEstimator as ChangepointModelCurvefitEstimator,
 )
-from changepointmodel.core import CurvefitEstimator as ChangepointModelCurvefitEstimator
 from mandvmodeling.core.pmodels.parameter_model import MandVParameterModelFunction
 from changepointmodel.core.pmodels import (
-    ParameterModelFunction,
     ParamaterModelCallableT,
     EnergyParameterModelT,
-    Load,
 )
 from changepointmodel.core.estimator import check_not_fitted
 from .schemas import MandVDataModel
@@ -145,7 +143,9 @@ class MandVEnergyChangepointEstimator(ChangepointModelEnergyChangepointEstimator
 
     def __init__(
         self,
-        model=MandVParameterModelFunction[ParamaterModelCallableT, EnergyParameterModelT],
+        model=MandVParameterModelFunction[
+            ParamaterModelCallableT, EnergyParameterModelT
+        ],
     ):
         if model and isinstance(model, MandVParameterModelFunction):
             self._model = model
@@ -161,7 +161,7 @@ class MandVEnergyChangepointEstimator(ChangepointModelEnergyChangepointEstimator
         data_model: MandVDataModel,
         sigma: Optional[OneDimNDArray[np.float64]] = None,
         absolute_sigma: bool = False,
-        **fit_params
+        **fit_params,
     ):
         """
         This is a wrapped around EnergyChangepointEstimator.fit that forces the data to be sorted by X. Use

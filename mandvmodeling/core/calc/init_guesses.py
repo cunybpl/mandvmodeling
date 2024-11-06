@@ -1,7 +1,7 @@
-"""Dynamically calculates trf initial guesses for changepoint models where we approximately expect them to fit energy data based on 
+"""Dynamically calculates trf initial guesses for changepoint models where we approximately expect them to fit energy data based on
 the values of the X array.
 
-Array return types correspond directly to coeffs in the method signature. Details on the structure of the bounds 
+Array return types correspond directly to coeffs in the method signature. Details on the structure of the bounds
 array can be read in the docs for `scipy.optimize.curve_fit`.
 """
 

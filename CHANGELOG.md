@@ -9,6 +9,8 @@ The changes in this release are as follows:
 - New `MandVCurvefitEstimator`class
 - `MandVEnergyChangepointEstimator` class
 
+Note that in this version, there are no tests that have been run on any of the modules.
+
 ## What's New
 
 ### Multiple Bounds Modules

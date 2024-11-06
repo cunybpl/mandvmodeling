@@ -1,14 +1,20 @@
-""" Dynamically calculates trf bounds for changepoint models where we approximately expect them to fit energy data based on 
+"""Dynamically calculates trf bounds for changepoint models where we approximately expect them to fit energy data based on
 the values of the X array.
 
-Tuple return types correspond directly to coeffs in the method signature.Details on the structure of the bounds 
+Tuple return types correspond directly to coeffs in the method signature.Details on the structure of the bounds
 tuples can be read in the docs for `scipy.optimize.curve_fit`.
 """
 
-from typing import Tuple, Union, Callable
+from typing import Tuple, Union
 import numpy as np
 from changepointmodel.core.nptypes import OneDimNDArray, NByOneNDArray
-from changepointmodel.core.calc.bounds import TwoParameterBoundary, ThreeParameterBoundary, FourParameterBoundary, FiveParameterBoundary
+from changepointmodel.core.calc.bounds import (
+    TwoParameterBoundary,
+    ThreeParameterBoundary,
+    FourParameterBoundary,
+    FiveParameterBoundary,
+)
+
 
 def twop(*args, **kwargs) -> Tuple[TwoParameterBoundary, TwoParameterBoundary]:  # type: ignore
     """Energy bound for a twop (linear) model. Essentially returns a constant but we need this to
@@ -21,7 +27,7 @@ def twop(*args, **kwargs) -> Tuple[TwoParameterBoundary, TwoParameterBoundary]: 
 
 
 def threepc(
-    X: Union[OneDimNDArray[np.float64], NByOneNDArray[np.float64]]
+    X: Union[OneDimNDArray[np.float64], NByOneNDArray[np.float64]],
 ) -> Tuple[ThreeParameterBoundary, ThreeParameterBoundary]:
     """A threepc boundary for energy data.
 
@@ -38,7 +44,7 @@ def threepc(
 
 
 def threeph(
-    X: Union[OneDimNDArray[np.float64], NByOneNDArray[np.float64]]
+    X: Union[OneDimNDArray[np.float64], NByOneNDArray[np.float64]],
 ) -> Tuple[ThreeParameterBoundary, ThreeParameterBoundary]:
     """A threeph boundary for energy data.
 
@@ -55,7 +61,7 @@ def threeph(
 
 
 def fourp(
-    X: Union[OneDimNDArray[np.float64], NByOneNDArray[np.float64]]
+    X: Union[OneDimNDArray[np.float64], NByOneNDArray[np.float64]],
 ) -> Tuple[FourParameterBoundary, FourParameterBoundary]:
     """A fourp boundary for energy data
 
@@ -72,7 +78,7 @@ def fourp(
 
 
 def fivep(
-    X: Union[OneDimNDArray[np.float64], NByOneNDArray[np.float64]]
+    X: Union[OneDimNDArray[np.float64], NByOneNDArray[np.float64]],
 ) -> Tuple[FiveParameterBoundary, FiveParameterBoundary]:
     """A fivep boundary for energy data.
 
