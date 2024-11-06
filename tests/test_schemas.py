@@ -89,7 +89,7 @@ def test_MandVDataModel_forgot_timestamps():
     xdata = np.array([1.0, 2.0, 3.0, 4.0, 5.0])
     ydata = np.array([1.0, 2.0, 3.0, 4.0, 5.0])
     try:
-        test = schemas.MandVDataModel(X=xdata, y=ydata)
+        schemas.MandVDataModel(X=xdata, y=ydata)
     except pydantic.ValidationError as e:
         assert e.errors()[0]["type"] == "missing"
 

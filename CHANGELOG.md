@@ -1,3 +1,19 @@
+# v1.0.1
+
+The changes in this release are as follows:
+
+- Entire package checked using [`ruff`](https://github.com/astral-sh/ruff)
+- Entire package formatted using [`ruff`](https://github.com/astral-sh/ruff)
+
+## What's New
+
+Originally, [`black`](https://github.com/psf/black) was used for code formatting. But this was changed to `ruff`.
+
+The entire package was checked using `ruff`. This:
+    - Removed unnecessary imports
+    - Fixed a problem in `test_schemas.py` where `test_MandVDataModel_forgot_timestamps` set a `MandVDataModelInstance` equal to `test`, but `test` was never used in the rest of the function.
+The entire package was formatted using `ruff` for code readability.
+
 # v1.0.0
 
 The changes in this release are as follows:

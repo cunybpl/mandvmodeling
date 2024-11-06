@@ -25,6 +25,7 @@ This package was developed in order to work with higher granularity data, as `cu
 - Supports various changepoint models (two-parameter, three-parameter, four-parameter, five-parameter)
 - Generates changepoint coordinates
 - Handles time series data analysis
+- Formatted and checked using Ruff
 
 ## Future Work
 
