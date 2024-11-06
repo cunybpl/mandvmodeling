@@ -1,7 +1,7 @@
 from typing import Annotated, Any
-from pydantic import BeforeValidator, PlainSerializer, WithJsonSchema
+from pydantic import BeforeValidator, PlainSerializer, WithJsonSchema, Optional
 import pydantic
-from changepointmodel.core.nptypes import NByOneNDArray
+from changepointmodel.core.nptypes import NByOneNDArray, Ordering
 from changepointmodel.core import CurvefitEstimatorDataModel
 import numpy as np
 
@@ -39,6 +39,7 @@ TimestampArrayField = Annotated[
 
 class MandVDataModel(CurvefitEstimatorDataModel):
     sensor_reading_timestamps: TimestampArrayField
+    order: Optional[Ordering]= None
     """
   An extended version of CurvefitEstimatorDataModel that forces the data to be sorted by X
   """
@@ -49,8 +50,8 @@ class MandVDataModel(CurvefitEstimatorDataModel):
         Checks to see if the X values are sorted. If not, sorts them.
         """
         if any(self.X.squeeze() != np.sort(self.X.squeeze())):
-            self.X, self.y, order = self.sorted_X_y()
-            self.sensor_reading_timestamps = self.sensor_reading_timestamps[order]
+            self.X, self.y, self.order = self.sorted_X_y()
+            self.sensor_reading_timestamps = self.sensor_reading_timestamps[self.order]
         return self
 
     @pydantic.model_validator(mode="after")

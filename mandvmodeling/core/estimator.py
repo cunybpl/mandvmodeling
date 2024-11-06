@@ -143,13 +143,13 @@ class MandVEnergyChangepointEstimator(ChangepointModelEnergyChangepointEstimator
 
     def __init__(
         self,
-        model=MandVParameterModelFunction[
-            ParamaterModelCallableT, EnergyParameterModelT
-        ],
+        model: Optional[MandVParameterModelFunction[ParamaterModelCallableT, EnergyParameterModelT]] = None
     ):
         if model and isinstance(model, MandVParameterModelFunction):
-            self._model = model
-            super().__init__(model=self._model)
+            self.model: Optional[
+                MandVParameterModelFunction[ParamaterModelCallableT, EnergyParameterModelT]
+                ] = model
+            super().__init__(model=self.model)
         else:
             raise ValueError(
                 "Must set `model` parameter to a `MandVParameterModelFunction` instance."
@@ -169,9 +169,9 @@ class MandVEnergyChangepointEstimator(ChangepointModelEnergyChangepointEstimator
         """
         self.data_model_ = data_model
         self.estimator_ = MandVCurvefitEstimator(
-            model_func=self._model.f,
-            bounds=self._model.bounds,
-            p0=self._model.initial_guesses,
+            model_func=self.model.f,
+            bounds=self.model.bounds,
+            p0=self.model.initial_guesses,
         )
         self.pred_y_ = self.estimator_.fit(
             self.data_model.X, self.data_model.y, sigma, absolute_sigma

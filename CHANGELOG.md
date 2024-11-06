@@ -1,3 +1,45 @@
+# v1.1.1
+
+The changes in this release are as follows
+
+- `MandVParameterModelFunction` now explicitly inherits from `typing.Generic`
+- Fixed `__init__` in `MandVEnergyChangepointEstimator`
+- `MandVDataModel` now has an `order` attribute
+
+## What's New
+
+## `MandVParameterModelFunction` Explicitly Inheriting from `typing.Generic`
+
+What was found was that importing `MandVEnergyChangepointEstimator` resulted in the following `TypeError`:
+
+```
+TypeError: <class 'mandvmodeling.core.pmodels.parameter_model.MandVParameterModelFunction'> is not a generic class
+```
+
+`EnergyChangepointEstimator` in `cunybpl/changepointmodel` inherits from `typing.Generic`. Therefore, any `MandVParameterModelFunction` instance now explicity inherits from `typing.Generic` to circumvent the error.
+
+## Fixed `__init__` in `MandVEnergyChangepointEstimator`
+
+The definition for the `__init__` was:
+
+```
+def __init__(
+    self,
+    model=MandVParameterModelFunction[
+            ParamaterModelCallableT, EnergyParameterModelT
+        ]
+)
+```
+The `=` sign should have been a `:` sign. This is now fixed.
+
+## `MandVDataModel` `order` Attribute
+
+This attribute was added in order for users to have access to the original ordering of the data before it is forcibly sorted by the `check_sorted``pydantic.model_validator`. This value is set by default as `None` and should be left that way as the `check_sorted``pydantic.model_validator` will set this value equal to a value of type `Ordering` (see `cunybpl/changepointmodel.core.nptypes`).
+
+This attribute was also added so then the `MandVDataModel` ordering could be used natively to set the `original_ordering` attribute in an `MandVEnergyChangepointEstimator` instance (see `original_ordering.setter` in `cunybpl/changepointmodel`'s `EnergyChangepointEstimator`). 
+
+If the order was unobtainable from `MandVDataModel`, then a `CurvefitEstimatorDataModel` instance would have had to have been created, from which the `sorted_X_y` method would be used.
+
 # v1.0.1
 
 The changes in this release are as follows:

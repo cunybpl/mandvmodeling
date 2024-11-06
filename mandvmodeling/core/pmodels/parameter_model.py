@@ -1,10 +1,11 @@
-from changepointmodel.core.pmodels.parameter_model import ParameterModelFunction
+from changepointmodel.core.pmodels.parameter_model import ParameterModelFunction as ChangepointModelParameterModelFunction
+from typing import Generic
 from changepointmodel.core.pmodels import base as ChangepointModelBase
 from typing import Union
 from . import base as MandVModelingBase
 
 
-class MandVParameterModelFunction(ParameterModelFunction):
+class MandVParameterModelFunction(ChangepointModelParameterModelFunction, Generic[ChangepointModelBase.ParamaterModelCallableT, ChangepointModelBase.EnergyParameterModelT]):
     """
     A class representing a parameter model function, inheriting from
     ChangepointModelParameterModelFunction.
