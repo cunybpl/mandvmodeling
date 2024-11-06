@@ -39,7 +39,7 @@ TimestampArrayField = Annotated[
 
 class MandVDataModel(CurvefitEstimatorDataModel):
     sensor_reading_timestamps: TimestampArrayField
-    order: Optional[Ordering]= None
+    order: Optional[Ordering] = None
     """
   An extended version of CurvefitEstimatorDataModel that forces the data to be sorted by X
   """

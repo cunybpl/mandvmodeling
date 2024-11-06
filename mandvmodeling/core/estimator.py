@@ -143,12 +143,16 @@ class MandVEnergyChangepointEstimator(ChangepointModelEnergyChangepointEstimator
 
     def __init__(
         self,
-        model: Optional[MandVParameterModelFunction[ParamaterModelCallableT, EnergyParameterModelT]] = None
+        model: Optional[
+            MandVParameterModelFunction[ParamaterModelCallableT, EnergyParameterModelT]
+        ] = None,
     ):
         if model and isinstance(model, MandVParameterModelFunction):
             self.model: Optional[
-                MandVParameterModelFunction[ParamaterModelCallableT, EnergyParameterModelT]
-                ] = model
+                MandVParameterModelFunction[
+                    ParamaterModelCallableT, EnergyParameterModelT
+                ]
+            ] = model
             super().__init__(model=self.model)
         else:
             raise ValueError(
