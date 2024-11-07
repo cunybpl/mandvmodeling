@@ -1,5 +1,5 @@
-from typing import Annotated, Any
-from pydantic import BeforeValidator, PlainSerializer, WithJsonSchema, Optional
+from typing import Annotated, Any, Optional
+from pydantic import BeforeValidator, PlainSerializer, WithJsonSchema
 import pydantic
 from changepointmodel.core.nptypes import NByOneNDArray, Ordering
 from changepointmodel.core import CurvefitEstimatorDataModel
@@ -65,5 +65,8 @@ class MandVDataModel(CurvefitEstimatorDataModel):
 
         if self.sigma is not None and len(self.sigma) != len(self.X):
             raise ValueError("len of sigma must match len X and y")
+
+        if self.order is not None and len(self.order) != len(self.X):
+            raise ValueError("len of order must match len X and y")
 
         return self

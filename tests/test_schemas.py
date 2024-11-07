@@ -120,3 +120,39 @@ def test_MandVDataModel_returns_sorted_X_y_timestamps():
         "2024-08-15T11:30:00",
         "2024-03-15T11:30:00",
     ]
+
+
+def test_MandVDataModel_ordering():
+    xdata = np.array([3.0, 5.0, 1.0, 2.0, 4.0])
+    ydata = np.array([1.0, 2.0, 3.0, 4.0, 5.0])
+    timestamp_data = np.array(
+        [
+            "2024-01-15 11:30:00",
+            "2024-03-15 11:30:00",
+            "2024-06-15 11:30:00",
+            "2024-07-15 11:30:00",
+            "2024-08-15 11:30:00",
+        ]
+    )
+
+    test = schemas.MandVDataModel(
+        X=xdata, y=ydata, sensor_reading_timestamps=timestamp_data
+    )
+    assert list(test.order) == [2, 3, 0, 4, 1]
+    assert [list(x) for x in test.X] == [[1.0], [2.0], [3.0], [4.0], [5.0]]
+    assert list(test.y) == [3.0, 4.0, 1.0, 5.0, 2.0]
+    assert [str(x) for x in test.sensor_reading_timestamps] == [
+        "2024-06-15T11:30:00",
+        "2024-07-15T11:30:00",
+        "2024-01-15T11:30:00",
+        "2024-08-15T11:30:00",
+        "2024-03-15T11:30:00",
+    ]
+    with pytest.raises(pydantic.ValidationError):
+        test_ordering = np.ndarray([2, 3, 0, 4])
+        test = schemas.MandVDataModel(
+            X=xdata,
+            y=ydata,
+            sensor_reading_timestamps=timestamp_data,
+            order=test_ordering,
+        )

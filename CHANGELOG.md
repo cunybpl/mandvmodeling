@@ -1,3 +1,8 @@
+# v1.1.2
+
+The changes in this release are as follows
+- `Optional` erroneously imported from `pydantic` fixed
+
 # v1.1.1
 
 The changes in this release are as follows
