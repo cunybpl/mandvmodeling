@@ -2,9 +2,44 @@ from changepointmodel.core.pmodels.parameter_model import (
     ParameterModelFunction as ChangepointModelParameterModelFunction,
 )
 from typing import Generic
+from _collections_abc import Callable
 from changepointmodel.core.pmodels import base as ChangepointModelBase
 from typing import Union
 from . import base as MandVModelingBase
+
+
+def _validate_param(param, param_str: str = None, valid_type=None):
+    """
+    Validates a parameter to ensure it meets the required type criteria.
+
+    Parameters:
+    -----------
+    param : Any
+        The parameter to validate.
+    param_str : str, optional
+        A string representation of the parameter name, used in error messages.
+    valid_type : type, optional
+        The expected type (or superclass) for validation.
+
+    Raises:
+    -------
+    TypeError
+        If the parameter does not inherit the specified type
+        or is not a valid callable function.
+    """
+    if hasattr(param, "__subclasses__"):
+        if not issubclass(param, valid_type):
+            raise TypeError(
+                "Wrong {} class used. {} class should inherit from {}. Incorrect class: {}.".format(
+                    param_str, param_str, str(valid_type), str(param)
+                )
+            )
+    elif not isinstance(param, Callable):
+        raise TypeError(
+            "{} is not a valid `function`. Currently of type {}".format(
+                str(param), type(param)
+            )
+        )
 
 
 class MandVParameterModelFunction(
@@ -15,28 +50,28 @@ class MandVParameterModelFunction(
     ],
 ):
     """
-    A class representing a parameter model function, inheriting from
+    This class models a parameter function and derives from
     ChangepointModelParameterModelFunction.
 
     Attributes:
     -----------
     name : str
-        The name of the parameter model function.
+        The identifier for the parameter model function.
     f : ChangepointModelBase.ParamaterModelCallableT
-        A callable function representing the parameter model.
+        A callable that defines the parameter model.
     bounds : Union[ChangepointModelBase.BoundCallable, ChangepointModelBase.Bound]
-        The bounds for the parameter model function.
+        Constraints for the parameter model function.
     parameter_model : ChangepointModelBase.EnergyParameterModelT
-        The energy parameter model associated with the function.
+        An associated energy parameter model.
     coefficients_parser : ChangepointModelBase.ICoefficientParser
-        The parser to handle coefficients of the function.
+        A component responsible for parsing coefficients.
     initital_guesses : Union[base.InitialGuessCallable, base.InitialGuess, None], optional
-        Initial guesses for the parameter model function (default is None).
+        Preliminary assumptions for the parameter model function, defaults to None.
 
     Methods:
     --------
     initial_guesses -> Union[base.InitialGuessCallable, base.InitialGuess, None]:
-        Returns the initial guesses for the parameter model function.
+        Provides the preliminary assumptions for the parameter model function.
     """
 
     def __init__(
@@ -50,6 +85,18 @@ class MandVParameterModelFunction(
             MandVModelingBase.InitialGuessCallable, MandVModelingBase.InitialGuess
         ] = None,
     ):
+        _validate_param(f)
+        _validate_param(
+            coefficients_parser,
+            "coefficients_parser",
+            ChangepointModelBase.ICoefficientParser,
+        )
+        _validate_param(
+            parameter_model,
+            "parameter_model",
+            ChangepointModelBase.AbstractEnergyParameterModel,
+        )
+
         super().__init__(
             name=name,
             f=f,
@@ -69,11 +116,11 @@ class MandVParameterModelFunction(
         MandVModelingBase.InitialGuessCallable, MandVModelingBase.InitialGuess, None
     ]:
         """
-        Returns the initial guesses for the parameter model function.
+        Provides the preliminary assumptions for the parameter model function.
 
         Returns:
         --------
         Union[MandVModelingBase.InitialGuessCallable, MandVModelingBase.InitialGuess, None]
-            The initial guesses for the parameter model, if any.
+            The preliminary assumptions for the parameter model, if present.
         """
         return self._initial_guesses

@@ -1,6 +1,24 @@
+# v1.1.3
+ 
+ The changes in this release are as follows:
+
+ - `_validate_param` validator created
+    - Validates parameters in `MandVParameterModelFunction`
+
+## What's New
+
+### `_validate_param`
+
+This new validator validates a parameter to ensure that it meets the required type criteria. This was created to type check the `f`, `parameter_model`, and `coefficients_parser` parameters in the `MandVParameterModelFunction` class. This ensures the following:
+    - `f` must be a callable
+    - `coefficients_parser` is a class which inherits from `cunybpl/changepointmodel.core.pmodels.base.ICoefficientParser`.
+    - `parameter_model` is a class which inherits from `cunybpl/changepointmodel.core.pmodels.base.AbstractEnergyParameterModel`
+This ensures that if new `parameter_model`s or new `coefficient_parser`s are created, they adhere to the abstract base classes defined in `cunybpl/changepointmodel.core.pmodels.base`. `f` has to be a callable because `scipy.optimize.curve_fit` requires it to be so.
+
 # v1.1.2
 
-The changes in this release are as follows
+The changes in this release are as follows:
+
 - `Optional` erroneously imported from `pydantic` fixed
 - Updated `MandVDataModel`
 
