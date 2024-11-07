@@ -34,10 +34,10 @@ def _validate_param(param, param_str: str = None, valid_type=None):
                     param_str, param_str, str(valid_type), str(param)
                 )
             )
-    elif not isinstance(param, Callable):
+    elif not isinstance(param, valid_type):
         raise TypeError(
-            "{} is not a valid `function`. Currently of type {}".format(
-                str(param), type(param)
+            "{} is not a valid `{}`. Currently of type {}".format(
+                param_str, str(valid_type), type(param)
             )
         )
 
@@ -85,16 +85,16 @@ class MandVParameterModelFunction(
             MandVModelingBase.InitialGuessCallable, MandVModelingBase.InitialGuess
         ] = None,
     ):
-        _validate_param(f)
+        _validate_param(param=f, param_str="f", valid_type=Callable)
         _validate_param(
-            coefficients_parser,
-            "coefficients_parser",
-            ChangepointModelBase.ICoefficientParser,
+            param = coefficients_parser,
+            param_str = "coefficients_parser",
+            valid_type=ChangepointModelBase.ICoefficientParser,
         )
         _validate_param(
-            parameter_model,
-            "parameter_model",
-            ChangepointModelBase.AbstractEnergyParameterModel,
+            param = parameter_model,
+            param_str="parameter_model",
+            valid_type=ChangepointModelBase.AbstractEnergyParameterModel,
         )
 
         super().__init__(
