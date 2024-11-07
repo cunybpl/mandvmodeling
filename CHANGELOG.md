@@ -2,6 +2,17 @@
 
 The changes in this release are as follows
 - `Optional` erroneously imported from `pydantic` fixed
+- Updated `MandVDataModel`
+
+## What's New
+
+### `Optional` Erroneously Imported from `pydantic` Fixed
+
+In `mandvmodeling.core.schemas`, `Optional` was erronously imported from `pydantic` when it should have been imported from the `typing` module. This is now fixed
+
+### Updated `MandVDataModel`
+
+In the `validate_all` `pydantic.model_validator`, if the `order` was specified when creating an instance of `MandVDataModel`, this validator now checks that the length of `order` is the same as the length of `X`. Before, this was not checked, which meant that `order` could be any array of any length/size.
 
 # v1.1.1
 
@@ -13,7 +24,7 @@ The changes in this release are as follows
 
 ## What's New
 
-## `MandVParameterModelFunction` Explicitly Inheriting from `typing.Generic`
+### `MandVParameterModelFunction` Explicitly Inheriting from `typing.Generic`
 
 What was found was that importing `MandVEnergyChangepointEstimator` resulted in the following `TypeError`:
 
@@ -23,7 +34,7 @@ TypeError: <class 'mandvmodeling.core.pmodels.parameter_model.MandVParameterMode
 
 `EnergyChangepointEstimator` in `cunybpl/changepointmodel` inherits from `typing.Generic`. Therefore, any `MandVParameterModelFunction` instance now explicity inherits from `typing.Generic` to circumvent the error.
 
-## Fixed `__init__` in `MandVEnergyChangepointEstimator`
+### Fixed `__init__` in `MandVEnergyChangepointEstimator`
 
 The definition for the `__init__` was:
 
@@ -37,7 +48,7 @@ def __init__(
 ```
 The `=` sign should have been a `:` sign. This is now fixed.
 
-## `MandVDataModel` `order` Attribute
+### `MandVDataModel` `order` Attribute
 
 This attribute was added in order for users to have access to the original ordering of the data before it is forcibly sorted by the `check_sorted``pydantic.model_validator`. This value is set by default as `None` and should be left that way as the `check_sorted``pydantic.model_validator` will set this value equal to a value of type `Ordering` (see `cunybpl/changepointmodel.core.nptypes`).
 
