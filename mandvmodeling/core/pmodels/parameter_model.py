@@ -8,7 +8,7 @@ from typing import Union
 from . import base as MandVModelingBase
 
 
-def _validate_param(param, param_str: str = None, valid_type=None):
+def _validate_param(param, param_str: str = None, valid_type = None):
     """
     Validates a parameter to ensure it meets the required type criteria.
 
