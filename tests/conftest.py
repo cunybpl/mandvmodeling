@@ -48,7 +48,7 @@ def generated_2p_data_daily_pre(generated_data_all_models_daily_pre):
         generated_data_all_models_daily_pre, "positive_slope_two_p"
     )
 
-
+# Pre-retrofit pytest fixtures
 @pytest.fixture
 def generated_three_pc_data_daily_pre(generated_data_all_models_daily_pre):
     return _parse_generated_mode_data(generated_data_all_models_daily_pre, "three_pc")
@@ -67,6 +67,11 @@ def generated_four_p_data_daily_pre(generated_data_all_models_daily_pre):
 @pytest.fixture
 def generated_five_p_data_daily_pre(generated_data_all_models_daily_pre):
     return _parse_generated_mode_data(generated_data_all_models_daily_pre, "five_p")
+
+# Post-retrofit pytest fixtures
+@pytest.fixture
+def generated_three_pc_data_daily_post(generated_data_all_model_daily_post):
+    return _parse_generated_mode_data(generated_data_all_model_daily_post, "three_pc")
 
 
 @pytest.fixture
