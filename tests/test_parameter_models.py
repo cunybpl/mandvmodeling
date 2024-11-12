@@ -6,6 +6,7 @@ from changepointmodel.core.pmodels.coeffs_parser import TwoParameterCoefficientP
 from mandvmodeling.core.pmodels import MandVParameterModelFunction
 import pytest
 
+
 def test_modelfunction():
     def f(X, y):
         return (X + y).squeeze()
@@ -44,13 +45,14 @@ def test_modelfunction():
         42, [99], []
     )
 
+
 def test_modelfunction_validator():
     def f(X, y):
         return (X + y).squeeze()
 
     bound = (42,), (43,)
     # Don't use instances like in `test_modelfunction`, just use
-    # the classes themselves 
+    # the classes themselves
     parameter_model = TwoParameterModel
     parser = TwoParameterCoefficientParser
     initial_guesses = (42, 43)
@@ -74,10 +76,10 @@ def test_modelfunction_validator():
         model = MandVParameterModelFunction(
             "mymodel",
             f=f,
-            bounds = bound,
+            bounds=bound,
             initital_guesses=initial_guesses,
             parameter_model=parameter_model,
-            coefficients_parser=parameter_model
+            coefficients_parser=parameter_model,
         )
 
     # Use `parser` class in the `parameter_model` param
@@ -85,19 +87,19 @@ def test_modelfunction_validator():
         model = MandVParameterModelFunction(
             "mymodel",
             f=f,
-            bounds = bound,
+            bounds=bound,
             initital_guesses=initial_guesses,
             parameter_model=parser,
-            coefficients_parser=parser
+            coefficients_parser=parser,
         )
 
     with pytest.raises(TypeError):
         # Use `parser` class in the `f` param
         model = MandVParameterModelFunction(
             "mymodel",
-                f=parser,
-                bounds = bound,
-                initital_guesses=initial_guesses,
-                parameter_model=parser,
-                coefficients_parser=parser
+            f=parser,
+            bounds=bound,
+            initital_guesses=initial_guesses,
+            parameter_model=parser,
+            coefficients_parser=parser,
         )

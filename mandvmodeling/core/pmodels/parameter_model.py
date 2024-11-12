@@ -8,7 +8,7 @@ from typing import Union
 from . import base as MandVModelingBase
 
 
-def _validate_param(param, param_str: str = None, valid_type = None):
+def _validate_param(param, param_str: str = None, valid_type=None):
     """
     Validates a parameter to ensure it meets the required type criteria.
 
@@ -87,12 +87,12 @@ class MandVParameterModelFunction(
     ):
         _validate_param(param=f, param_str="f", valid_type=Callable)
         _validate_param(
-            param = coefficients_parser,
-            param_str = "coefficients_parser",
+            param=coefficients_parser,
+            param_str="coefficients_parser",
             valid_type=ChangepointModelBase.ICoefficientParser,
         )
         _validate_param(
-            param = parameter_model,
+            param=parameter_model,
             param_str="parameter_model",
             valid_type=ChangepointModelBase.AbstractEnergyParameterModel,
         )

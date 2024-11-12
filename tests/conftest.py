@@ -10,6 +10,7 @@ from changepointmodel.core.nptypes import OneDimNDArray
 from changepointmodel.core.pmodels import base as ChangepointModelBase
 import numpy as np
 
+
 @pytest.fixture
 def generated_data_all_models_daily_pre():
     contents = []
@@ -47,29 +48,26 @@ def generated_2p_data_daily_pre(generated_data_all_models_daily_pre):
         generated_data_all_models_daily_pre, "positive_slope_two_p"
     )
 
+
 @pytest.fixture
 def generated_three_pc_data_daily_pre(generated_data_all_models_daily_pre):
-    return _parse_generated_mode_data(
-        generated_data_all_models_daily_pre, "three_pc"
-    )
+    return _parse_generated_mode_data(generated_data_all_models_daily_pre, "three_pc")
+
 
 @pytest.fixture
 def generated_three_ph_data_daily_pre(generated_data_all_models_daily_pre):
-    return _parse_generated_mode_data(
-        generated_data_all_models_daily_pre, "three_ph"
-    )
+    return _parse_generated_mode_data(generated_data_all_models_daily_pre, "three_ph")
+
 
 @pytest.fixture
 def generated_four_p_data_daily_pre(generated_data_all_models_daily_pre):
-    return _parse_generated_mode_data(
-        generated_data_all_models_daily_pre, "four_p"
-    )
+    return _parse_generated_mode_data(generated_data_all_models_daily_pre, "four_p")
+
 
 @pytest.fixture
 def generated_five_p_data_daily_pre(generated_data_all_models_daily_pre):
-    return _parse_generated_mode_data(
-        generated_data_all_models_daily_pre, "five_p"
-    )
+    return _parse_generated_mode_data(generated_data_all_models_daily_pre, "five_p")
+
 
 @pytest.fixture
 def TestLoadInstance():
@@ -81,4 +79,5 @@ def TestLoadInstance():
             coeffs: ChangepointModelBase.EnergyParameterModelCoefficients,
         ) -> ChangepointModelBase.Load:  # pragma: no cover
             pass
+
     return TestLoad()

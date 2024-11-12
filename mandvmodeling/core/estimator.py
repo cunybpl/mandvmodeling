@@ -5,7 +5,7 @@ import numpy.typing as npt
 import numpy as np
 from changepointmodel.core.estimator import (
     EnergyChangepointEstimator as ChangepointModelEnergyChangepointEstimator,
-    CurvefitEstimator as ChangepointModelCurvefitEstimator
+    CurvefitEstimator as ChangepointModelCurvefitEstimator,
 )
 from mandvmodeling.core.pmodels.parameter_model import MandVParameterModelFunction
 from changepointmodel.core.pmodels import (
