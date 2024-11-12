@@ -3,9 +3,9 @@ from collections.abc import Callable
 from changepointmodel.core.nptypes import OneDimNDArray
 import numpy.typing as npt
 import numpy as np
-from changepointmodel.core import (
+from changepointmodel.core.estimator import (
     EnergyChangepointEstimator as ChangepointModelEnergyChangepointEstimator,
-    CurvefitEstimator as ChangepointModelCurvefitEstimator,
+    CurvefitEstimator as ChangepointModelCurvefitEstimator
 )
 from mandvmodeling.core.pmodels.parameter_model import MandVParameterModelFunction
 from changepointmodel.core.pmodels import (
@@ -147,17 +147,20 @@ class MandVEnergyChangepointEstimator(ChangepointModelEnergyChangepointEstimator
             MandVParameterModelFunction[ParamaterModelCallableT, EnergyParameterModelT]
         ] = None,
     ):
-        if model and isinstance(model, MandVParameterModelFunction):
-            self.model: Optional[
-                MandVParameterModelFunction[
-                    ParamaterModelCallableT, EnergyParameterModelT
-                ]
-            ] = model
-            super().__init__(model=self.model)
+        if model:
+            if isinstance(model, MandVParameterModelFunction):
+                self.model: Optional[
+                    MandVParameterModelFunction[
+                        ParamaterModelCallableT, EnergyParameterModelT
+                    ]
+                ] = model
+                super().__init__(model=self.model)
+            else:
+                raise ValueError(
+                    "Must set `model` parameter to a `MandVParameterModelFunction` instance."
+                )
         else:
-            raise ValueError(
-                "Must set `model` parameter to a `MandVParameterModelFunction` instance."
-            )
+            super().__init__(model=model)
 
     @check_data_model
     def fit(
@@ -171,15 +174,15 @@ class MandVEnergyChangepointEstimator(ChangepointModelEnergyChangepointEstimator
         This is a wrapped around EnergyChangepointEstimator.fit that forces the data to be sorted by X. Use
         EnergyChangepointEstimator.fit if you don't need to force the data to be sorted by X.
         """
-        self.data_model_ = data_model
+        self.__data_model = data_model
         self.estimator_ = MandVCurvefitEstimator(
             model_func=self.model.f,
             bounds=self.model.bounds,
             p0=self.model.initial_guesses,
         )
         self.pred_y_ = self.estimator_.fit(
-            self.data_model.X, self.data_model.y, sigma, absolute_sigma
-        ).predict(self.data_model.X)
+            self.__data_model.X, self.__data_model.y, sigma, absolute_sigma
+        ).predict(self.__data_model.X)
 
         self.X_, self.y_ = (
             self.estimator_.X_,
@@ -193,8 +196,8 @@ class MandVEnergyChangepointEstimator(ChangepointModelEnergyChangepointEstimator
 
     @property
     @check_not_fitted
-    def data_model(self) -> MandVDataModel:
+    def sensor_reading_timestamps(self) -> OneDimNDArray[np.datetime64]:
         """
         Returns the MandVDataModel object used to fit the model.
         """
-        return self.data_model_
+        return self.__data_model.sensor_reading_timestamps

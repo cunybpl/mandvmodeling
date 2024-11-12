@@ -1,3 +1,64 @@
+# v1.1.4
+
+The changes in this release are as follows:
+
+- In the `__init__` for `MandVEnergyChangepointEstimator`, `model` can be a `NoneType`
+- In `MandVEnergyChangepointEstimator`, `data_model` is no longer retrievable.
+
+## What's New
+
+### `NoneType` for `model` in `MandVEnergyChangepointEstimator`
+
+Before, the if-else statements would raise a `ValueError` if `model` was anything but an instance of type `MandVParameterModelFunction`. Now the if-else statement checks if `model` is `None`, if it's `None`, then the `MandVEnergyChangepointEstimator` instance still gets initialized and no `ValueError` is raised. This was done because `test_parameter_models.py` in `cunybpl/changepointmodel` has a `test_unfit_estimator_raises_notfittederror_on_property_access` unit test where `model` is `None`. This test was ported over to this package but failed because of the `ValueError`. But in this version, that test now passes.
+
+## Removed retrievable `data_model` from `MandVEnergyChangepointEstimator`
+
+In `MandVEnergyChangepointEstimator`, you can retrieve `X` and `y`, which are derived from the `MandVDataModel` instance used in the `fit` method. `MandVDataModel` contains in addition, the `sensor_reading_timestamps` parameter. Originally, you could retrieve the `data_model` instance from the `MandVEnergyChangepointEstimator`, but you could also in addition, retrieve the `X` and `y` from the same estimator too. Therefore, you could technically retrive the same array twice from the same estimator instance, by performing:
+
+```
+bounds = ((0, -np.inf), (np.inf, np.inf))
+mymodel = MandVParameterModelFunction(
+    name = "2P", 
+    f = twop, 
+    bounds = bounds, 
+    parameter_model = TwoParameterModel(), 
+    coefficients_parser = TwoParameterCoefficientParser()
+)
+
+X = np.linspace(1, 10, 10)
+y = np.linspace(1, 10, 10)
+sensor_reading_timestamps = [
+    "2024-10-20",
+    "2024-10-21",
+    "2024-10-22",
+    "2024-10-23",
+    "2024-10-24",
+    "2024-10-25",
+    "2024-10-26",
+    "2024-10-27",
+    "2024-10-28",
+    "2024-10-29",
+]
+
+data_model = MandVDataModel(
+    X=X, y=y, sensor_reading_timestamps=sensor_reading_timestamps
+)
+
+est = MandVEnergyChangepointEstimator(mymodel)
+est.fit(data_model)
+
+#Retrieve `X` and `y` from the estimator
+print(est.X)
+print(est.y)
+
+#Retrieve `X` and `y` from the `MandVDataModel` instance
+#that is embedded inside the estimator itself 
+print(est.data_model.X)
+print(est.data_model.y)
+```
+
+The fact that you can retrieve X and y technically twice from the same object is redundant. Therefore, the `data_model` from the `MandVEnergyChangepointEstimator` instance is now privated. You can now directly retrieve the `sensor_reading_timestamps` array from the `data_model` instance. `sensor_reading_timestamps` is a new attribute that is not in `cunybpl/changepointmodel`'s `EnergyChangepointEstimator`.
+
 # v1.1.3
  
  The changes in this release are as follows:
